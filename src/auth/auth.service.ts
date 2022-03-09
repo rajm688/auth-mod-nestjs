@@ -11,10 +11,10 @@ export class AuthService {
     private authReporstory: AuthRepository,
     private jwtService: JwtService,
   ) {}
-  signUp(req: AuthDto) {
+  signUp(req: AuthDto): Promise<{}> {
     return this.authReporstory.creatingUser(req);
   }
-  signin(req: AuthDto) {
-    return this.authReporstory.finduser(req, this.jwtService);
+  signin(req: AuthDto): Promise<{}> {
+    return this.authReporstory.finduser(req, this.jwtService); // is it ok to send the service to repo
   }
 }

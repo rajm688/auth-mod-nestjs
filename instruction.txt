@@ -1,0 +1,38 @@
+1. create a new folder and run nest new project_name
+2. in src folder keep src module file and delete remaining
+3. run nest g module auth 
+4. run nest g controller auth --no-spec
+5. run nest g service auth --no-spec
+6. create a new db in pg admin 
+7. run npm i typeorm @nestjs/typeorm pg
+8. create a entity
+9. go to app.module import typeormModule
+10. insert typeormModule in imports as  typeormModule.forroot({type,host,port,username,password,database, other properties: autoLoadEntitles,synchronize})
+11. if you are using data mapper approach we need not to  extends base eintity
+       - active Record is a  method where we write our query methods in the model itself where we need to extend the BaseEntity - ❌
+       - Data Mapper in this method we will write our database queries in a seperte file called repository results in  cleaner code - ✅
+11. creare a new file name it as auth.repository.ts
+       - repository are class decorated with @EntityRepository which extends Repostiory from typeorm and gives the type of the entity the repository tends to
+       - dont forget to gve the enitity name in thr @EntityRepository() decorator
+       - to make this repo avilable anywhere in our authmodule we need to do dependency injection
+12. go to auth module in imports import typeormModule.forFeature([a]) // it expects array of entities but we are providing the repository
+13. completed the logical part for login and signup part
+14. install JWT npm i @nestjs/jwt @nestjs/passport psssport passport-jwt
+15. after installing the packages go to auth module
+       - import passportModule.register({defaultmodule:"jwt"}) 
+       - import jwtModule.register({secret:"topsecret",signInOptions:{expiresIn:3600}})
+       - jwt module will exports a service called jwtservice we are going to use this service in athservice
+       - import the service in auth service and pass it to repo
+       - create a payload the payload must be an obj
+       - jwtservice.sign(payload)
+       - return the jwt as an obj
+______________________________________________________________________________________________________________________________________
+1. trying to use all the query buider methods using repository method
+       - nest g module task
+       - nest g controller --no-spec
+       - nest g service --no-spec 
+2. create a entity model
+3. create repository
+4. go to task module and import typeormModule.forFeature([tasRepo])
+
+        

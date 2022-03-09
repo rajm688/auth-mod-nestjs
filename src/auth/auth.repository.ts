@@ -4,9 +4,10 @@ import { EntityRepository, Repository } from 'typeorm';
 import { Auth } from './auth.entity';
 import * as bcrypt from 'bcrypt';
 import { AuthDto } from './dto/auth.dto';
+import { payloadInterface } from './dto/payload.interface';
 @EntityRepository(Auth) // to denote the repository of the Auth entity
 export class AuthRepository extends Repository<Auth> {
-  async creatingUser(req: AuthDto): Promise<string> {
+  async creatingUser(req: AuthDto): Promise<{}> {
     try {
       const { username, password } = req;
       const salt = await bcrypt.genSalt();
@@ -16,25 +17,25 @@ export class AuthRepository extends Repository<Auth> {
         .into(Auth)
         .values({ username, password: hashedPassword })
         .execute();
-      return 'user created successfully';
+      return { mes: 'user created successfully' };
     } catch (error) {
       //   console.log(error.code);
-      if (error.code == 23505) return 'user already exists';
-      else return 'error in signup';
+      if (error.code == 23505) return { mes: 'user already exists' };
+      else return { mes: 'error in signup' };
     }
   }
-  async finduser(req: AuthDto, jwtService): Promise<any> {
+  async finduser(req: AuthDto, jwtService): Promise<{}> {
     try {
       const { username, password } = req;
       const user = await this.createQueryBuilder().where({ username }).getOne();
       const unhashedpassword = await bcrypt.compare(password, user.password);
       if (user && unhashedpassword) {
-        const payload = { username }; //payload should be an object
+        const payload: payloadInterface = { username }; //payload should be an object
         const accessToken = await jwtService.sign(payload);
-        return { accessToken };
-      } else return 'invalid username or password';
+        return { accessToken }; // common prctice is to sent token in obj
+      } else return { mes: 'invaid username or password' };
     } catch (err) {
-      return 'error in login';
+      return { mes: 'error in login' };
     }
   }
 }
