@@ -1,4 +1,4 @@
-import { TaskStatus } from '../tasks.entity';
+import { TaskStatus } from '../../entities/tasks.entity';
 
 export class TaskDto {
   title: string;

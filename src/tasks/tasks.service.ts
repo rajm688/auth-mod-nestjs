@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TaskDto } from './DTO/task.dto';
-import { TaskStatus } from './tasks.entity';
+import { TaskStatus } from '../entities/tasks.entity';
 import { TaskRepository } from './tasks.repository';
+import { CreateTaskDto } from './DTO/create-task-dto';
 
 @Injectable()
 export class TasksService {
@@ -16,7 +17,7 @@ export class TasksService {
   getTaskById(id: string) {
     return this.taskRepository.getTaskById(id);
   }
-  createTask(res: TaskDto) {
+  createTask(res: CreateTaskDto) {
     return this.taskRepository.createTask(res);
   }
   deleteTask(id: string) {

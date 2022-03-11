@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthController } from './auth.controller';
 import { AuthRepository } from './auth.repository';
 import { AuthService } from './auth.service';
+import { JwtStrategy } from './jwt.strategy';
 
 // when we are importing typeormodule in app.module we use forRoot and in anyother submodule we use ForFeature
 @Module({
@@ -12,7 +13,7 @@ import { AuthService } from './auth.service';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       // jwt module will exports a service called jwtservice we are going to use this service in athservice
-      secret: 'ganeshvellan',
+      secret: 'Top_secret',
       signOptions: {
         expiresIn: 3600,
       },
@@ -20,6 +21,7 @@ import { AuthService } from './auth.service';
     TypeOrmModule.forFeature([AuthRepository]),
   ], // it expects array of entities but we are providing the repository
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
+  exports: [PassportModule, JwtStrategy],
 })
 export class AuthModule {}

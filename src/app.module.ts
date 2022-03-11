@@ -1,22 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 import { TasksModule } from './tasks/tasks.module';
 
 @Module({
-  imports: [
-    AuthModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'raj123',
-      database: 'auth-mod',
-      autoLoadEntities: true, // we can provide entities here or autoload entitiles will do it for us
-      synchronize: true,
-    }),
-    TasksModule,
-  ],
+  imports: [TypeOrmModule.forRoot(), AuthModule, TasksModule],
 })
 export class AppModule {}

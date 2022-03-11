@@ -1,7 +1,7 @@
 //repository are class decorated with @EntityRepository which extends Repostiory from typeorm and gives the type of the entity the repository tends to
 
 import { EntityRepository, Repository } from 'typeorm';
-import { Auth } from './auth.entity';
+import { Auth } from '../entities/auth.entity';
 import * as bcrypt from 'bcrypt';
 import { AuthDto } from './dto/auth.dto';
 import { payloadInterface } from './dto/payload.interface';
@@ -32,7 +32,7 @@ export class AuthRepository extends Repository<Auth> {
       if (user && unhashedpassword) {
         const payload: payloadInterface = { username }; //payload should be an object
         const accessToken = await jwtService.sign(payload);
-        return { accessToken }; // common prctice is to sent token in obj
+        return { accessToken }; // common practice is to sent token in obj
       } else return { mes: 'invaid username or password' };
     } catch (err) {
       return { mes: 'error in login' };
