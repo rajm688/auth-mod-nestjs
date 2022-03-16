@@ -6,11 +6,13 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { TaskDto } from './DTO/task.dto';
 import { TaskStatus } from '../entities/tasks.entity';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './DTO/create-task-dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('tasks')
 export class TasksController {
@@ -37,6 +39,7 @@ export class TasksController {
     return this.taskService.updateTask(id, status);
   }
   @Get('/test')
+  @UseGuards(AuthGuard())
   test() {
     return 'hello test';
   }

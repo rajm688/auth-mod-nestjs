@@ -15,6 +15,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       JwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
+  /**
+   *
+   * @param payload
+   * @returns
+   */
   async validate(payload: payloadInterface) {
     const { username } = payload; // where does this payload is coming from
     const user = await this.authRepository

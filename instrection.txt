@@ -126,11 +126,14 @@
     - after creating own strategy we must provide our own jwt strategy to our auth module
     - export authstrategy and possportmodule in authmodule
 
+24. creating our own decorator
+    - to create a custom decerator
+    - create a variable assiged to createparamsDecorator
 
-24. Serialization - transformation 
+25. Serialization - transformation 
     - Interseptor is a concept in nestjs that allows us to do something when a req comes in either process it or change it
 
-25. logging 
+26. logging 
     - logging helps in tracking the code
         - log
         - warning
@@ -144,12 +147,12 @@
     - the logger class will also accepts the second parameter which is timestramp enabled
     - if you use error in logger it will allow us to error.stack 
 
-26. Configuration
+27. Configuration
     - configuration are defining values that are loaded upon starting the application - hence that should not be changed
     - configuration can be done per environment - development, stagging,production
     - config. can be done in code base. helpfu wen we are woring in a team
     - it can also be defined in all formats
-27. code base andd ev
+28. code base andd ev
     - non sensitive details can be defined in code base
     - sensitive datas will be stored in ev
     - to use config in our program we need to install @nestjs/config
